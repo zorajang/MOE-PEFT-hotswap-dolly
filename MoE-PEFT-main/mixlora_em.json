@@ -1,0 +1,46 @@
+{
+    "cutoff_len": 1024,
+    "save_step": 10000,
+    "train_lora_candidate_num": 2,
+    "train_lora_simultaneously_num": 2,
+    "train_strategy": "optim",
+    "lora": [
+        {
+            "name": "mixlora",
+            "task_name": "casual",
+            "optim": "adamw",
+            "data": "databricks/databricks-dolly-15k",
+            "prompt": "alpaca",
+            "scheduler_type": "constant",
+            "warmup_steps": 0,
+            "lr": 2e-4,
+            "batch_size": 8,
+            "micro_batch_size": 2,
+            "evaluate_batch_size": 8,
+            "num_epochs": 3,
+            "r": 8,
+            "lora_alpha": 16,
+            "lora_dropout": 0.05,
+            "target_modules": {
+                "q_proj": true,
+                "k_proj": true,
+                "v_proj": true,
+                "o_proj": true,
+                "gate_proj": true,
+                "down_proj": true,
+                "up_proj": true
+            },
+            "routing_strategy": "mixlora",
+            "num_experts": 8,
+            "top_k": 2,
+            "group_by_length": true
+        }
+    ],
+    "expert_merging": {
+    "enabled": true,
+    "strategy": "mean",
+    "scope": "layerwise",
+    "experts": "all",
+    "name_suffix": "-merged"
+  }
+}
