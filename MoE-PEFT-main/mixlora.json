@@ -1,39 +1,55 @@
 {
-    "cutoff_len": 512,
-    "save_step": 3000,
-    "train_lora_candidate_num": 2,
-    "train_lora_simultaneously_num": 2,
-    "train_strategy": "optim",
-    "lora": [
-        {
-            "name": "mixlora",
-            "task_name": "casual",
-            "data": "yahma/alpaca-cleaned",
-            "prompt": "alpaca",
-            "optim": "adamw",
-            "scheduler_type": "constant",
-            "warmup_steps": 0,
-            "lr": 2e-4,
-            "batch_size": 16,
-            "micro_batch_size": 8,
-            "evaluate_batch_size": 16,
-            "num_epochs": 2,
-            "r": 16,
-            "lora_alpha": 32,
-            "lora_dropout": 0.05,
-            "target_modules": {
-                "q_proj": true,
-                "k_proj": true,
-                "v_proj": true,
-                "o_proj": true,
-                "gate_proj": true,
-                "down_proj": true,
-                "up_proj": true
-            },
-            "routing_strategy": "mixlora",
-            "num_experts": 8,
-            "top_k": 2,
-            "group_by_length": false
-        }
-    ]
+  "model_name_or_path": "meta-llama/Llama-3.2-1B-Instruct",
+  "tokenizer_name": "meta-llama/Llama-3.2-1B-Instruct",
+
+  "load_in_4bit": true,
+  "bnb_4bit_compute_dtype": "bfloat16",
+
+  "cutoff_len": 512,
+  "save_step": 3000,
+  "train_lora_candidate_num": 2,
+  "train_lora_simultaneously_num": 2,
+  "train_strategy": "optim",
+
+  "merge_experts": false,
+  "merge_strategy": "none",
+  "merge_on_save": false,
+  "do_final_merge": false,
+
+  "lora": [
+    {
+      "name": "mixlora",
+      "task_name": "casual",
+      "data": "yahma/alpaca-cleaned",
+      "prompt": "alpaca",
+
+      "optim": "adamw",
+      "scheduler_type": "constant",
+      "warmup_steps": 0,
+      "lr": 0.0002,
+      "batch_size": 16,
+      "micro_batch_size": 8,
+      "evaluate_batch_size": 16,
+      "num_epochs": 2,
+
+      "r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "target_modules": {
+        "q_proj": true,
+        "k_proj": true,
+        "v_proj": true,
+        "o_proj": true,
+        "gate_proj": true,
+        "down_proj": true,
+        "up_proj": true
+      },
+
+      "routing_strategy": "mixlora",
+      "num_experts": 8,
+      "top_k": 2,
+      "group_by_length": true
+    }
+  ]
 }
+
