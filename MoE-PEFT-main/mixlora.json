@@ -20,7 +20,7 @@
     {
       "name": "mixlora",
       "task_name": "casual",
-      "data": "yahma/alpaca-cleaned",
+      "data": "databricks/databricks-dolly-15k",
       "prompt": "alpaca",
 
       "optim": "adamw",
